@@ -1,0 +1,66 @@
+.container {
+  width: 400px;
+  height: 200px;
+  background-color: aqua;
+}
+
+.inputName {
+  width: 400px;
+  height: 100px;
+  background-color: aqua;
+}
+
+.wetherIcon {
+  position: relative;
+  top: -65px;
+  width: 100px;
+  margin-bottom: -80px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* body {
+  background: #233047;
+}
+
+.container {
+  max-width: 400px;
+}
+
+h1 {
+  font-size: 2.2rem;
+} */
