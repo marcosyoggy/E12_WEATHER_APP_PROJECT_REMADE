@@ -1,3 +1,10 @@
+/*
+  07
+
+  - Na weather app, faça com que quando o usuário recarregar a página ou sair 
+    da aplicação e voltar, as informações da última cidade pesquisada sejam 
+    exibidas na interface.
+*/
 
 
 const form = document.querySelector('[data-app="inputData"')
@@ -123,50 +130,6 @@ showLastCity()
 
 
 
-
-
-
-
-
-
-// infoCityData()
-// localStorage.clear()
-
-// const storeData = response => {
-//     const objData = JSON.stringify(response)
-//     localStorage.setItem('cityData', objData)
-//     const getCityData = localStorage.getItem('cityData')
-//     return getCityData
-// }
-
-
-// const dataJSON = async inputData => {
-    // const responseCity = await getInfoCityWeather(inputData)
-    // const [{Key, LocalizedName}] = JSON.parse(storeData(responseCity))
-
-    // const responseConditions = await fetchURL(urlConditions(Key))
-    // const [{IsDayTime, WeatherText, WeatherIcon, Temperature }] = JSON.parse(storeData(responseConditions))
-    
-
-
-
-    
-    
-
-    // return LocalizedName + IsDayTime + WeatherText + WeatherIcon + Temperature.Metric.Value 
-// }
-//  dataJSON("Quintana").then(console.log)//Retorna um array de objetos;   
-//  dataJSON("Quintana").then(console.log)   
-//  dataJSON("São Paulo").then(console.log)   
-    
-// const dataJSON2 = async inputData => {
-//     const [{Key}] = await getInfoCityWeather(inputData)
-//     return response2
-// }    
-// dataJSON2('Quintana').then(console.log)//Retorna dados do clima da city;
-    
-// localStorage.removeItem('Key')
-    
     
     
 
