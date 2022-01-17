@@ -52,25 +52,31 @@ const infoCityData = async inputData => {
     showInfoCity(LocalizedName, WeatherText, WeatherIcon, Temperature, IsDayTime)
 }
 
-const showLastCity = () => {
-    const [{LocalizedName}] = JSON.parse(localStorage.getItem("cityData"))
-    const [{IsDayTime, WeatherText, WeatherIcon, Temperature }] = JSON.parse(localStorage.getItem("cityConditions"))
+// const showLastCity = () => {
+//     const [{LocalizedName}] = JSON.parse(localStorage.getItem("cityData"))
+//     const [{IsDayTime, WeatherText, WeatherIcon, Temperature }] = JSON.parse(localStorage.getItem("cityConditions"))
 
-    showInfoCity(LocalizedName, WeatherText, WeatherIcon, Temperature, IsDayTime)
-}
+//     showInfoCity(LocalizedName, WeatherText, WeatherIcon, Temperature, IsDayTime)
+// }
 
 form.addEventListener("submit", event => {
     event.preventDefault()
     const inputData = event.target.inputCity.value.trim()
     
     infoCityData(inputData)
+
+    localStorage.setItem('lastCity', inputData)
     
     form.reset()
 })
 
-showLastCity()
+const lastCity = localStorage.getItem('lastCity')
 
+lastCity ? infoCityData(lastCity): null
 
+// showLastCity()
+
+// localStorage.clear()
 
 
 
