@@ -23,21 +23,3 @@ const getInfoCityWeather = async inputData => {
     const response = await fetchURL(urlCity(inputData))
     return response
 }
-
-
-// const getInfoCityWeather = async inputData => {
-//     const [{Key}] = await fetchURL(urlCity(inputData))
-//     return Key
-//     // const response = await fetchURL(urlCity(inputData))
-//     // return response
-// }
-
-// getInfoCityWeather('Quintana').then(console.log)
-
-// const infoData = async inputData => {
-//     const keyCod = await getInfoCityWeather(inputData)
-//     const response = await fetchURL(urlConditions(keyCod))
-//     return response
-// }
-
-// infoData('Quintana').then(console.log)

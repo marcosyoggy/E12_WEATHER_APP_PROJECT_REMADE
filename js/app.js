@@ -1,11 +1,15 @@
 /*
-  07
-
-  - Na weather app, faça com que quando o usuário recarregar a página ou sair 
-    da aplicação e voltar, as informações da última cidade pesquisada sejam 
-    exibidas na interface.
+  06
+  
+  - Na Weather Application, refatore para uma factory function o código que 
+    executa os requests e obtém as informações do clima da cidade;
+  - Se ao fazer o request, uma mensagem "Access to fetch at 'http://...' from 
+    origin 'http://...'"... for exibida no console, crie uma nova app na 
+    plataforma da accuweather e pegue uma nova chave: 
+    https://developer.accuweather.com/;
+  - O procedimento é o mesmo mostrado nas aulas da etapa em que construímos essa
+    aplicação.
 */
-
 
 const form = document.querySelector('[data-app="inputData"')
 const cityName = document.querySelector('[data-app="cityname"]')
@@ -29,117 +33,50 @@ const storeDataConditions = response => {
     return getCityConditions
 }
 
-const showInfoCity = (
-LocalizedName,
-WeatherText,
-WeatherIcon,
-Temperature,
-IsDayTime) => {
-    cityName.textContent = LocalizedName
-    display_Weather.textContent = WeatherText
-    display_Weather_Icon.innerHTML = `<img data-app="icon-ref" src="./icons/${WeatherIcon}.svg" class="icon-Ref "></img>`
-    localTemperature.textContent = Temperature.Metric.Value
-    IsDayTime ? day_Image.src = "./src/day.svg" : day_Image.src = "./src/night.svg"
+const requests_Methods = {
+
+    showInfoCity(
+        LocalizedName,
+        WeatherText,
+        WeatherIcon,
+        Temperature,
+        IsDayTime) {
+        cityName.textContent = LocalizedName
+        display_Weather.textContent = WeatherText
+        display_Weather_Icon.innerHTML = `<img data-app="icon-ref" src="./icons/${WeatherIcon}.svg" class="icon-Ref "></img>`
+        localTemperature.textContent = Temperature.Metric.Value
+        IsDayTime ? day_Image.src = "./src/day.svg" : day_Image.src = "./src/night.svg"
+    },
+
+    async infoCityData(inputData) {
+        const responseCity = await getInfoCityWeather(inputData)
+        const [{ Key, LocalizedName }] = JSON.parse(storeDataCity(responseCity))
+
+        const responseConditions = await fetchURL(urlConditions(Key))
+        const [{ IsDayTime, WeatherText, WeatherIcon, Temperature }] = JSON.parse(storeDataConditions(responseConditions))
+
+        this.showInfoCity(LocalizedName, WeatherText, WeatherIcon, Temperature, IsDayTime)
+    }
 }
 
-const infoCityData = async inputData => {
-    const responseCity = await getInfoCityWeather(inputData)
-    const [{Key, LocalizedName}] = JSON.parse(storeDataCity(responseCity))
-
-    const responseConditions = await fetchURL(urlConditions(Key))
-    const [{IsDayTime, WeatherText, WeatherIcon, Temperature }] = JSON.parse(storeDataConditions(responseConditions))
-
-    showInfoCity(LocalizedName, WeatherText, WeatherIcon, Temperature, IsDayTime)
+function factory_Request_APP() {
+    let new_obj = Object.create(requests_Methods)
+    return new_obj
 }
 
-// const showLastCity = () => {
-//     const [{LocalizedName}] = JSON.parse(localStorage.getItem("cityData"))
-//     const [{IsDayTime, WeatherText, WeatherIcon, Temperature }] = JSON.parse(localStorage.getItem("cityConditions"))
-
-//     showInfoCity(LocalizedName, WeatherText, WeatherIcon, Temperature, IsDayTime)
-// }
+const enter_City_Name = factory_Request_APP()
 
 form.addEventListener("submit", event => {
     event.preventDefault()
     const inputData = event.target.inputCity.value.trim()
-    
-    infoCityData(inputData)
+
+    enter_City_Name.infoCityData(inputData)
 
     localStorage.setItem('lastCity', inputData)
-    
+
     form.reset()
 })
 
 const lastCity = localStorage.getItem('lastCity')
 
-lastCity ? infoCityData(lastCity): null
-
-// showLastCity()
-
-// localStorage.clear()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-
-
-
-
-
+lastCity ? enter_City_Name.infoCityData(lastCity) : null
